@@ -36,7 +36,7 @@ particlesJS('particles-js',
         },
         "image": {
           //"src": "https://123emoji.com/wp-content/uploads/2017/08/sticker-99.png",
-          "src": "https://static.wikia.nocookie.net/sumikko-gurashi/images/f/fd/Neko.png",
+          "src": "https://i.pinimg.com/originals/49/03/db/4903db6a9815df2520115341422ea9ae.png",
           "width": 100,
           "height": 100
         }
