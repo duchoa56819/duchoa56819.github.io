@@ -6,24 +6,32 @@
   <meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
   <meta name="author" content="Vincent Garreau" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
   <link rel="stylesheet" media="screen" href="css/style.css">
 </head>
 <body>
-
+  <!-- <iframe src="https://free.timeanddate.com/countdown/i846eodw/n248/cf114/cm0/cu4/ct0/cs1/ca0/co1/cr0/ss0/cacf0f/cpcf99/pcfff/tc000/fs100/szw320/szh135/tatMomo's%20Birthday/tacf0f/tptHappy%20Birthdayyyy/tpcf99/iso2021-12-18T00:00:00/bas3/bacf99" allowtransparency="true" frameborder="0" width="326" height="141"></iframe> -->
+  <div class="audioplayer">
+    <audio
+        controls
+        src="audio/test.mp3">
+            Your browser does not support the
+            <code>audio</code> element.
+    </audio>
+  </div>
 <!-- count particles -->
-<div class="count-particles">
+<!-- <div class="count-particles">
   <span class="js-count-particles">--</span> particles
-</div>
+</div> -->
 
 <!-- particles.js container -->
 <div id="particles-js"></div>
-
 <!-- scripts -->
 <script src="../particles.js"></script>
 <script src="js/app.js"></script>
-
+<script src="js/lib/greenaudio.js"></script>
 <!-- stats.js -->
-<script src="js/lib/stats.js"></script>
+<!-- <script src="js/lib/stats.js"></script>
 <script>
   var count_particles, stats, update;
   stats = new Stats;
@@ -42,7 +50,7 @@
     requestAnimationFrame(update);
   };
   requestAnimationFrame(update);
-</script>
+</script> -->
 
 </body>
 </html>

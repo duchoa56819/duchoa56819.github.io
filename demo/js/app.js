@@ -16,7 +16,7 @@ particlesJS('particles-js',
   {
     "particles": {
       "number": {
-        "value": 80,
+        "value": 60,
         "density": {
           "enable": true,
           "value_area": 800
@@ -35,8 +35,8 @@ particlesJS('particles-js',
           "nb_sides": 5
         },
         "image": {
-          //"src": "https://123emoji.com/wp-content/uploads/2017/08/sticker-99.png",
-          "src": "https://i.pinimg.com/originals/49/03/db/4903db6a9815df2520115341422ea9ae.png",
+          "src": "https://123emoji.com/wp-content/uploads/2017/08/sticker-99.png",
+          //"src": "https://i.pinimg.com/originals/49/03/db/4903db6a9815df2520115341422ea9ae.png",
           "width": 100,
           "height": 100
         }
@@ -52,7 +52,7 @@ particlesJS('particles-js',
         }
       },
       "size": {
-        "value": 40,
+        "value": 36,
         "random": true,
         "anim": {
           "enable": false,
@@ -62,7 +62,7 @@ particlesJS('particles-js',
         }
       },
       "line_linked": {
-        "enable": true,
+        "enable": false,
         "distance": 150,
         "color": "#ffffff",
         "opacity": 0.4,
@@ -71,8 +71,8 @@ particlesJS('particles-js',
       "move": {
         "enable": true,
         "speed": 6,
-        "direction": "none",
-        "random": false,
+        "direction": "bottom",
+        "random": true,
         "straight": false,
         "out_mode": "out",
         "attract": {
@@ -87,11 +87,11 @@ particlesJS('particles-js',
       "events": {
         "onhover": {
           "enable": true,
-          "mode": "repulse"
+          "mode": "bubble"
         },
         "onclick": {
           "enable": true,
-          "mode": "push"
+          "mode": "repulse"
         },
         "resize": true
       },
@@ -113,7 +113,7 @@ particlesJS('particles-js',
           "distance": 200
         },
         "push": {
-          "particles_nb": 4
+          "particles_nb": 2
         },
         "remove": {
           "particles_nb": 2

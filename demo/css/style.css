@@ -94,3 +94,32 @@ canvas{
   background-position: 50% 50%;
   background-repeat: no-repeat;
 }
+.audioplayer{
+  opacity: 0;
+  transition: opacity 500ms;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 300px;
+}
+.audioplayer:hover{
+  opacity: 1;
+  transition: opacity 500ms;
+}
+.m-fadeOut {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s linear 300ms, opacity 300ms;
+}
+.m-fadeIn {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s linear 0s, opacity 300ms;
+}
+.hide {
+  display: none;
+}
+
+.myDIV:hover + .hide {
+  display: block;
+}
