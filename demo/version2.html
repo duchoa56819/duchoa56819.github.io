@@ -4,12 +4,134 @@
   <meta charset="utf-8">
   <title>Welcome</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-  <link rel="stylesheet" media="screen" href="css/style.css">
+<!-- 
+  <link rel="stylesheet" media="screen" href="css/style2.css">
+-->
 </head>
 <body>
 	<div>
 		<p>Hello</p>
 	</div>
+	<label for="heroes">Enter hero names (separated by commas):</label>
+    <input type="text" id="heroes">
+    <button onclick="generateCounters()">Generate</button>
+	<label id="resultLabel"></label>
+    <script>
+        var counterMap = {
+			"Alucard": ["Franco", "Diggie", "Chou", "Aldous", "Lancelot", "Karrie"],
+			"Argus": ["Diggie", "Nana", "Saber", "Khufra", "Helcurt", "Esmeralda"],
+			"Aurora": ["Ruby", "Gusion", "Ling", "Selena", "Pharsa", "Chou"],
+			"Balmond": ["Karrie", "Ruby", "Lunox", "Natalia", "Chou", "Esmeralda"],
+			"Bane": ["Johnson", "Jawhead", "Selena", "Natalia", "Wanwan", "Lancelot"],
+			"Barats": ["Nana", "Helcurt", "Esmeralda", "Kagura", "Uranus", "Pharsa"],
+			"Belerick": ["Karrie", "Gusion", "Lesley", "Wanwan", "Kimmy", "Granger"],
+			"Benedetta": ["Franco", "Diggie", "Khufra", "Chou", "Selena", "Helcurt"],
+			"Brody": ["Harith", "Lancelot", "Ling", "Gusion", "Esmeralda", "Claude"],
+			"Cecilion": ["Natalia", "Ling", "Franco", "Selena", "Chou", "Gusion"],
+			"Chang'e": ["Hayabusa", "Gusion", "Lylia", "Selena", "Esmeralda", "Pharsa"],
+			"Claude": ["Saber", "Selena", "Karrie", "Granger", "Kimmy", "Ling"],
+			"Diggie": ["Selena", "Helcurt", "Natalia", "Ling", "Kagura", "Chou"],
+			"Esmeralda": ["Khufra", "Valir", "Chou", "Helcurt", "Guinevere", "Pharsa"],
+			"Estes": ["Karrie", "Ling", "Natalia", "Selena", "Gusion", "Chou"],
+			"Eudora": ["Helcurt", "Gusion", "Lancelot", "Ling", "Aurora", "Pharsa"],
+			"Fanny": ["Lylia", "Chou", "Gusion", "Helcurt", "Esmeralda", "Jawhead"],
+			"Franco": ["Aurora", "Karina", "Khaleed", "Ruby", "Bane", "Masha"],
+			"Gatotkaca": ["Aldous", "Karrie", "Kimmy", "Lesley", "Wanwan", "Brody"],
+			"Gusion": ["Selena", "Helcurt", "Lancelot", "Benedetta", "Ling", "Chou"],
+			"Hanabi": ["Claude", "Karrie", "Granger", "Lesley", "Wanwan", "Kimmy"],
+			"Harith": ["Pharsa", "Lunox", "Esmeralda", "Valir", "Gusion", "Chou"],
+			"Harley": ["Hanzo", "Gusion", "Lylia", "Ling", "Chou", "Selena"],
+			"Hayabusa": ["Gusion", "Kagura", "Lylia", "Ling", "Helcurt", "Chou"],
+			"Helcurt": ["Lylia", "Gusion", "Ling", "Chou", "Lesley", "Selena"],
+			"Hilda": ["Aldous", "Karina", "Kimmy", "Lesley", "Wanwan", "Brody"],
+			"Hylos": ["Lylia", "Gusion", "Ling", "Chou", "Eudora", "Aurora"],
+			"Irithel": ["Karrie", "Lesley", "Granger", "Kimmy", "Wanwan", "Brody"],
+			"Jawhead": ["Lylia", "Gusion", "Ling", "Chou", "Brody", "Selena"],
+			"Johnson": ["Harley", "Fanny", "Ling", "Gusion", "Chou", "Selena"],
+			"Kadita": ["Ruby", "Gusion", "Ling", "Selena", "Pharsa", "Chou"],
+			"Kagura": ["Harith", "Pharsa", "Esmeralda", "Gusion", "Aurora", "Chou"],
+			"Karina": ["Franco", "Diggie", "Chou", "Natalia", "Valir", "Ling"],
+			"Karrie": ["Kimmy", "Aldous", "Franco", "Claude", "Wanwan", "Brody"],
+			"Khaleed": ["Valir", "Esmeralda", "Gusion", "Chou", "X.Borg", "Lapu-Lapu"],
+			"Khufra": ["Claude", "Karrie", "Kimmy", "Wanwan", "Popol and Kupa", "Chang'e"],
+			"Kimmy": ["Aldous", "Hayabusa", "Selena", "Natalia", "Karrie", "Ling"],
+			"Lancelot": ["Uranus", "Gusion", "Ling", "Chou", "Lesley", "Pharsa"],
+			"LapuLapu": ["Silvanna", "Hayabusa", "Gusion", "Chou", "Terizla", "Khufra"],
+			"Layla": ["Natalia", "Hayabusa", "Fanny", "Lancelot", "Lesley", "Wanwan"],
+			"Leomord": ["Diggie", "Ruby", "Franco", "Chou", "Gusion", "Aldous"],
+			"Lesley": ["Gusion", "Karrie", "Granger", "Claude", "Brody", "Ling"],
+			"Ling": ["Chou", "Aldous", "Franco", "Jawhead", "Helcurt", "Gusion"],
+			"Lylia": ["Gusion", "Hylos", "Kagura", "Fanny", "Chang'e", "Pharsa"],
+			"LuoYi": ["Zhask", "Helcurt", "Chou", "Gusion", "Esmeralda", "Ling"],
+			"Lunox": ["Harith", "Pharsa", "Esmeralda", "Helcurt", "Alice", "Valir"],
+			"Masha": ["Claude", "Karrie", "Granger", "Lesley", "Wanwan", "Brody"],
+			"Mathilda": ["Ling", "Gusion", "Helcurt", "Chou", "Selena", "Khufra"],
+			"Minotaur": ["Helcurt", "Lylia", "Gusion", "Ling", "Chou", "Selena"],
+			"Minsitthar": ["Chou", "Gusion", "Lancelot", "Ling", "Terizla", "Alucard"],
+			"Miya": ["Natalia", "Hayabusa", "Fanny", "Karrie", "Gusion", "Lancelot"],
+			"Moskov": ["Franco", "Grock", "Lunox", "Helcurt", "Chou", "Jawhead"],
+			"Nana": ["Fanny", "Hayabusa", "Ling", "Gusion", "Helcurt", "Chou"],
+			"Natalia": ["Diggie", "Franco", "Chou", "Ling", "Selena", "Gusion"],
+			"Odette": ["Harith", "Lancelot", "Gusion", "Ling", "Chou", "Selena"],
+			"Paquito": ["Franco", "Diggie", "Khufra", "Chou", "Selena", "Helcurt"],
+			"Pharsa": ["Gusion", "Ling", "Fanny", "Hayabusa", "Chou", "Lancelot"],
+			"Popol and Kupa": ["Chou", "Grock", "Jawhead", "Ling", "Kaja", "Uranus"],
+			"Rafaela": ["Natalia", "Helcurt", "Ling", "Gusion", "Chou", "Selena"],
+			"Roger": ["Helcurt", "Ling", "Chou", "Selena", "Gusion", "Pharsa"],
+			"Ruby": ["Lylia", "Gusion", "Ling", "Chou", "Franco", "Terizla"],
+			"Selena": ["Ling", "Gusion", "Helcurt", "Chou", "Lesley", "Fanny"],
+			"Silvanna": ["Diggie", "Minsitthar", "Helcurt", "Chou", "Ling", "Terizla"],
+			"Sun": ["Lunox", "Esmeralda", "Harith", "Pharsa", "Hayabusa", "Chou"],
+			"Terizla": ["Ruby", "Jawhead", "Franco", "Chou", "Lapu-Lapu", "Guinevere"],
+			"Thamuz": ["Esmeralda", "Guinevere", "Gusion", "Chou", "Minsitthar", "Terizla"],
+			"Tigreal": ["Lylia", "Gusion", "Chou", "Helcurt", "Atlas", "Uranus"],
+			"Uranus": ["Diggie", "Esmeralda", "Harith", "Pharsa", "Silvanna", "Lunox"],
+			"Valir": ["Esmeralda", "Kagura", "Gusion", "Chou", "Aurora", "Guinevere"],
+			"Vexana": ["Rafaela", "Selena", "Helcurt", "Natalia", "Odette", "Ling"],
+			"Wanwan": ["Franco", "Diggie", "Chou", "Selena", "Helcurt", "Ling"],
+			"XBorg": ["Chou", "Selena", "Ling", "Gusion", "Khufra", "Lancelot"],
+			"YSS": ["Helcurt", "Gusion", "Ling", "Chou", "Karrie", "Wanwan"],
+			"Yu Zhong": ["Chou", "Gusion", "Ling", "Valir", "Selena", "Esmeralda"],
+			"Zhask": ["Aldous", "Ling", "Gusion", "Natalia", "Chou", "Selena"],
+			"Zilong": ["Chou", "Ling", "Gusion", "Helcurt", "Alucard", "Roger"]
+		};
+
+        function generateCounters() {
+            var heroesInput = document.getElementById("heroes").value;
+            var heroes = heroesInput.split(",").map(function(hero) {
+                return hero.trim();
+            });
+
+            var counters = {};
+
+            for (var i = 0; i < heroes.length; i++) {
+                var hero = heroes[i];
+                if (counterMap.hasOwnProperty(hero)) {
+                    var counterHeroes = counterMap[hero];
+                    for (var j = 0; j < counterHeroes.length; j++) {
+                        var counterHero = counterHeroes[j];
+                        if (counters.hasOwnProperty(counterHero)) {
+                            counters[counterHero]++;
+                        } else {
+                            counters[counterHero] = 1;
+                        }
+                    }
+                }
+            }
+
+            var sortedCounters = Object.keys(counters).sort(function(a, b) {
+                return counters[b] - counters[a];
+            });
+
+            var output = "Counter Heroes:\n";
+            for (var k = 0; k < sortedCounters.length; k++) {
+                var counter = sortedCounters[k];
+                var count = counters[counter];
+                output += counter + " (" + count + ")\n";
+            }
+
+            document.getElementById("resultLabel").innerHTML = output;
+        }
+    </script>
 </body>
 </html>
