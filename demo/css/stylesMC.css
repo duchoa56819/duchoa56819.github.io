@@ -1,0 +1,37 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+#search-input {
+  padding: 5px;
+  width: 300px;
+  margin-right: 10px;
+}
+
+button {
+  padding: 5px 10px;
+}
+
+#results-container {
+  margin-bottom: 20px;
+}
+
+.result {
+  margin-bottom: 10px;
+}
+
+#player-container {
+  text-align: center;
+}
