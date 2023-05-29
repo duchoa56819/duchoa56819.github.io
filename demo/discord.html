@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Discord Web Chat</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>Discord Web Chat</h1>
+  <div id="login">
+    <h2>Login to Discord</h2>
+    <button onclick="login()">Login with Discord</button>
+  </div>
+  <div id="chat" style="display: none;">
+    <h2>Chat</h2>
+    <div id="message-container"></div>
+    <input type="text" id="message-input" placeholder="Enter your message..." />
+    <button onclick="sendMessage()">Send</button>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    var token;
+
+    function login() {
+      window.location.href = "https://discord.com/api/oauth2/authorize?client_id=1112576573254672496&redirect_uri=https://duchoa56819.github.io/demo/discord.html&response_type=token&scope=identify";
+    }
+
+    function handleLoginResponse() {
+      var hashParams = window.location.hash.substr(1).split("&");
+      var params = {};
+      for (var i = 0; i < hashParams.length; i++) {
+        var p = hashParams[i].split("=");
+        params[p[0]] = decodeURIComponent(p[1]);
+      }
+      if (params.access_token) {
+        token = params.access_token;
+        $("#login").hide();
+        $("#chat").show();
+        startWebSocket();
+      }
+    }
+
+    function startWebSocket() {
+      var socket = new WebSocket("wss://gateway.discord.gg/?v=9&encoding=json");
+
+      socket.onopen = function(event) {
+        socket.send(JSON.stringify({
+          "op": 2,
+          "d": {
+            "token": token,
+            "intents": 513,
+            "properties": {
+              "$os": "windows",
+              "$browser": "chrome",
+              "$device": "desktop"
+            }
+          }
+        }));
+      };
+
+      socket.onmessage = function(event) {
+        var data = JSON.parse(event.data);
+        if (data.t === "MESSAGE_CREATE") {
+          var message = data.d;
+          $("#message-container").append("<p>" + message.author.username + ": " + message.content + "</p>");
+        }
+      };
+    }
+
+    function sendMessage() {
+      var message = $("#message-input").val();
+      if (message.trim() !== "") {
+        $.ajax({
+          url: "https://discord.com/api/v9/channels/676686409997746187/messages",
+          type: "POST",
+          beforeSend: function(request) {
+            request.setRequestHeader("Authorization", "Bearer " + token);
+          },
+          contentType: "application/json",
+          data: JSON.stringify({ "content": message }),
+          success: function(data) {
+            $("#message-input").val("");
+          }
+        });
+      }
+    }
+
+    function logout() {
+      token = null;
+      $("#login").show();
+      $("#chat").hide();
+    }
+
+    $(document).ready(function() {
+      handleLoginResponse();
+    });
+  </script>
+</body>
+</html>
