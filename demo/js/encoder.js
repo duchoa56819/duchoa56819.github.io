@@ -1,25 +1,66 @@
+const encodingMap = {
+  a: "q",
+  b: "w",
+  c: "e",
+  d: "r",
+  e: "t",
+  f: "y",
+  g: "u",
+  h: "i",
+  i: "o",
+  j: "p",
+  k: "a",
+  l: "s",
+  m: "d",
+  n: "f",
+  o: "g",
+  p: "h",
+  q: "j",
+  r: "k",
+  s: "l",
+  t: "z",
+  u: "x",
+  v: "c",
+  w: "v",
+  x: "b",
+  y: "n",
+  z: "m",
+};
+
 function encode() {
   const inputText = document.getElementById("inputText").value;
-  const encodedText = caesarCipher(inputText, 1); // Shifts each character by 1 position
-  document.getElementById("encodedText").value = encodedText;
+  const encodedText = substitutionEncode(inputText);
+  document.getElementById("outputText").value = encodedText;
 }
 
-function caesarCipher(text, shift) {
-  let result = "";
+function decode() {
+  const inputText = document.getElementById("inputText").value;
+  const decodedText = substitutionDecode(inputText);
+  document.getElementById("outputText").value = decodedText;
+}
+
+function substitutionEncode(text) {
+  let encodedText = "";
 
   for (let i = 0; i < text.length; i++) {
-    let charCode = text.charCodeAt(i);
-
-    if (charCode >= 65 && charCode <= 90) {
-      // Uppercase letters
-      charCode = ((charCode - 65 + shift) % 26) + 65;
-    } else if (charCode >= 97 && charCode <= 122) {
-      // Lowercase letters
-      charCode = ((charCode - 97 + shift) % 26) + 97;
-    }
-
-    result += String.fromCharCode(charCode);
+    const char = text[i].toLowerCase();
+    const encodedChar = encodingMap[char] || char;
+    encodedText += encodedChar;
   }
 
-  return result;
+  return encodedText;
+}
+
+function substitutionDecode(text) {
+  let decodedText = "";
+
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i].toLowerCase();
+    const decodedChar = Object.keys(encodingMap).find(
+      (key) => encodingMap[key] === char
+    ) || char;
+    decodedText += decodedChar;
+  }
+
+  return decodedText;
 }
