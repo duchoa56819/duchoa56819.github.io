@@ -64,3 +64,16 @@ function substitutionDecode(text) {
 
   return decodedText;
 }
+
+function copyOutput() {
+  const outputText = document.getElementById('outputText');
+  outputText.select();
+  outputText.setSelectionRange(0, 99999); // For mobile devices
+  document.execCommand('copy');
+  alert('Copied to clipboard!');
+}
+
+
+
+
+
