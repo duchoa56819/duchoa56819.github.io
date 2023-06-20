@@ -12,3 +12,15 @@ button {
   padding: 10px 20px;
   font-size: 16px;
 }
+
+.output-container {
+  display: flex;
+}
+
+.output-container textarea {
+  flex-grow: 1;
+}
+
+.output-container button {
+  margin-left: 10px;
+}
