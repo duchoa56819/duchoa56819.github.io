@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anagram Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #anagrams {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+        }
+        #loading {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Anagram Generator</h1>
+    <p>Enter a 9-letter word below:</p>
+    <input type="text" id="wordInput" maxlength="9" pattern="[a-zA-Z]{9}" title="Please enter exactly 9 letters">
+    <button onclick="generateAnagrams()">Generate Anagrams</button>
+    <p id="loading">Generating anagrams, please wait...</p>
+    <div id="anagrams"></div>
+    
+    <script>
+        // Load the JSON file containing the anagrams
+        let anagramData = [];
+
+        function generateAnagrams() {
+            const wordInput = document.getElementById('wordInput');
+            const word = wordInput.value.trim();
+            const anagramDiv = document.getElementById('anagrams');
+            const loading = document.getElementById('loading');
+            
+            if (word.length !== 9) {
+                alert('Please enter exactly 9 letters.');
+                return;
+            }
+
+            loading.style.display = 'block'; // Show loading message
+
+            fetch('https://raw.githubusercontent.com/mistval/kotoba/master/resources/quiz_data/anagrams9.json')
+                .then(response => response.json())
+                .then(data => {
+                    anagramData = data.cards;
+                    const strSorted = word.split('').sort().join(''); // Sorting input for easy comparison
+                    
+                    let foundAnagrams = [];
+                    
+                    anagramData.forEach(x => {
+                        let t = x.question;
+                        let tSorted = t.split('').sort().join(''); // Sorting data for easy comparison
+                        
+                        if (strSorted === tSorted) {
+                            foundAnagrams.push(t);
+                        }
+                    });
+                    
+                    if (foundAnagrams.length > 0) {
+                        anagramDiv.innerHTML = `<strong>Found Anagrams:</strong><ul>${foundAnagrams.map(anagram => `<li>${anagram}</li>`).join('')}</ul>`;
+                    } else {
+                        anagramDiv.innerHTML = '<strong>No anagrams found.</strong>';
+                    }
+                    
+                    loading.style.display = 'none'; // Hide loading message
+                })
+                .catch(error => {
+                    console.error('Error loading JSON file:', error);
+                    anagramDiv.innerHTML = '<strong>Error loading anagrams. Please try again later.</strong>';
+                    loading.style.display = 'none'; // Hide loading message
+                });
+        }
+    </script>
+</body>
+</html>
